@@ -4,8 +4,21 @@ const bcrypt = require('bcrypt');
 const Usuario = require('./../models/user');
 const jwt = require('jsonwebtoken'); 
 
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.sendStatus(401)
+  
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      console.log(err)
+      if (err) return res.sendStatus(403)
+      req.user = user
+      next()
+    })
+}
+
 //estas son las rutas a las que puedes acceder
-router.get('/', (req, res) => {
+router.get('/', authenticateToken,(req, res) => {
     res.json({
         "Desc" : "REDSOCIAL RUTA RAIZ"
     });
@@ -43,11 +56,11 @@ router.post('/login', (req, res) => {
         }
 
         // Genera el token de autenticación
-        let token = jwt.sign({
-            usuario: usuarioDB,
-        }, process.env.SEED_AUTENTICACION, {
-            expiresIn: process.env.CADUCIDAD_TOKEN
-        })
+        let token = jwt.sign(
+            {usuario: usuarioDB},
+            process.env.ACCESS_TOKEN_SECRET,
+            {expiresIn: process.env.CADUCIDAD_TOKEN}
+        )
 
         res.json({
             ok: true,

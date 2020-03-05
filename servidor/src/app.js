@@ -48,6 +48,12 @@ process.env.CADUCIDAD_TOKEN = '48h';
 
 process.env.SEED_AUTENTICACION = process.env.SEED_AUTENTICACION || 'este-es-el-seed-desarrollo';
 
+// =======================
+// SECRETO TOKEN - DEBERIA SER VARIABLE DE ENVIROMENT
+// =======================
+
+process.env.ACCESS_TOKEN_SECRET = 'misecreto'
+
 //routes
 app.use(require('./routes/index.js'));
 
