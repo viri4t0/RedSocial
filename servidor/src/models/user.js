@@ -14,6 +14,10 @@ let userSchema = new Schema({
         type: String,
         required: [true, 'El nombre es necesario'],
     },
+    apellido: {
+        type: String,
+        required: [true, 'El apellido es necesario'],
+    },
     email: {
         type: String,
         unique: true,
@@ -22,6 +26,11 @@ let userSchema = new Schema({
     password: {
         type: String,
         required: [true, "Le contraseña es obligatoria"],
+    },
+    visible: {
+        type: Boolean,
+        default: true,
+        required: [true]
     },
     role: {
         type: String,

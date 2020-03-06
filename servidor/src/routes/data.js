@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const jwt = require('jsonwebtoken'); 
+const Usuario = require('./../models/user');
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
@@ -15,9 +16,16 @@ function authenticateToken(req, res, next) {
     })
 }
 //estas son las rutas a las que puedes acceder
-router.get('/', authenticateToken,(req, res) => {
-    res.json({
-        "Desc" : "REDSOCIAL RUTA RAIZ"
+router.get('/listusers', authenticateToken,(req, res) => {
+    Usuario.find({visible : true}, 'email -_id', (err, usuarios) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err,
+            });
+        }
+        console.log(usuarios);
+        res.send(usuarios);
     });
 });
 
