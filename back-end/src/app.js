@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+const cors = require('cors');
 
 mongoose.connect('mongodb://localhost/redsocial', {
     //configuracion para evitar deprecates
@@ -16,7 +17,7 @@ mongoose.connect('mongodb://localhost/redsocial', {
     .catch(err => console.log(err));
 
 
-
+app.use(cors());
 //esto pilla las peticiones antes de que lleguen a la ejecucion en el servidor
 //y te las muestra por consola
 app.use(morgan('dev'));
