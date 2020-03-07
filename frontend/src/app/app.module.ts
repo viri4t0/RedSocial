@@ -11,7 +11,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
+import { AuthGuard } from './auth.guard'
+import { AuthInterceptorService} from './services/auth/auth-interceptor.service'
 
 @NgModule({
   declarations: [
@@ -28,7 +30,14 @@ import { HttpClientModule } from '@angular/common/http'
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

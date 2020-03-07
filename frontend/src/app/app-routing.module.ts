@@ -7,6 +7,8 @@ import { LffriendsComponent } from './components/lffriends/lffriends.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+import { AuthGuard } from './auth.guard'
+
 const routes: Routes = [
   {
     path : '',
@@ -23,15 +25,18 @@ const routes: Routes = [
   },
   {
     path : 'profile',
-    component : ProfileComponent
+    component : ProfileComponent,
+    canActivate : [AuthGuard]
   },
   {
     path : 'friends',
-    component : FriendsComponent
+    component : FriendsComponent,
+    canActivate : [AuthGuard]
   },
   {
     path : 'lffriends',
-    component : LffriendsComponent
+    component : LffriendsComponent,
+    canActivate : [AuthGuard]
   }
 ];
 

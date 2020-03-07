@@ -12,7 +12,8 @@ mongoose.connect('mongodb://localhost/redsocial', {
     //useMongoClient: true,
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 }).then(db => console.log('DB CONNECTED'))
     .catch(err => console.log(err));
 

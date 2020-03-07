@@ -38,6 +38,7 @@ let userSchema = new Schema({
         required: [true],
         enum: rolesValidos,
     },
+    friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'Usuario'}]
 });
 
 // elimina la key password del objeto que retorna al momento de crear un usuario
