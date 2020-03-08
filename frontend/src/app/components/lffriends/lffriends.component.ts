@@ -9,13 +9,13 @@ export class LffriendsComponent implements OnInit {
 
   constructor(private friendService: FriendsService) { }
 
-  people = [];
+  peopleList = [];
 
   ngOnInit(): void {
     this.friendService.getPeople()
     .subscribe (
       res => {
-        this.people = res;
+        this.peopleList = res;
         console.log(res);
       }, err => console.log(err)
     )

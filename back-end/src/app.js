@@ -3,6 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+require('appmetrics-dash').attach();
+
 const app = express();
 
 const cors = require('cors');
