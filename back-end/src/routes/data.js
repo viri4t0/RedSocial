@@ -31,8 +31,18 @@ router.get('/listusers', authenticateToken,(req, res) => {
 
 router.post('/updateUser', authenticateToken,(req, res) => {
     console.log("UPDATE REQ: ", req.body)
-    Usuario.findByIdAndUpdate(req.body._id, req.body, (err, doc) =>{
+    let body = req.body;
+
+    let { username, nombre, email, apellido } = body;
+    if (username == '' || nombre == '' || email == '' || apellido == '') {
+        return res.status(400).json({
+            ok: false,
+            respuesta: "NO PUEDES VACIAR UN CAMPO",
+        });
+    }
+    Usuario.findByIdAndUpdate(req.body._id, body, (err, doc) =>{
         if (err) {
+            console.log(err)
             return res.status(400).json({
                 ok: false,
                 err,
