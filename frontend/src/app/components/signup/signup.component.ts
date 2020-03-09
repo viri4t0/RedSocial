@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class SignupComponent implements OnInit {
 
   user = {
+    username : '',
     nombre : '',
     apellido : '',
     email : '',

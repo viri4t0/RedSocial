@@ -56,13 +56,13 @@ router.post('/login', (req, res) => {
 router.post('/register', function (req, res) {
     let body = req.body;
 
-    let { nombre, email, apellido, password, visible, role } = body;
+    let { username, nombre, email, apellido, password, role } = body;
     let usuario = new Usuario({
+      username,
       nombre,
       apellido,
       email,
       password: bcrypt.hashSync(password, 10),
-      visible,
       role
     });
 

@@ -10,6 +10,11 @@ let rolesValidos = {
 let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
+    username: {
+        type: String,
+        unique: true,
+        required: [true, "El nombre de usuario es necesario"],
+    },
     nombre: {
         type: String,
         required: [true, 'El nombre es necesario'],
@@ -38,7 +43,17 @@ let userSchema = new Schema({
         required: [true],
         enum: rolesValidos,
     },
-    friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'Usuario'}]
+    sentRequest:[{
+		username: {type: String, default: ''}
+	}],
+	requestRecived: [{
+		userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+		username: {type: String, default: ''}
+	}],
+	friendList: [{
+		friendId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+		friendName: {type: String, default: ''}
+	}],
 });
 
 // elimina la key password del objeto que retorna al momento de crear un usuario

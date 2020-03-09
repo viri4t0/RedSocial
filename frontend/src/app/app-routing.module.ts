@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path : 'profile',
     component : ProfileComponent,
-    canActivate : [AuthGuard]
+    canActivate : [AuthGuard],
   },
   {
     path : 'friends',

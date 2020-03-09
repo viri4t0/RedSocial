@@ -29,7 +29,7 @@ export class SigninComponent implements OnInit {
       res => {
         console.log(res['ok'], res['usuario'] ,res['token']);
         localStorage.setItem('token', res['token']);
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/profile'], {state : {data : res['usuario']}});
       },
       err => console.log(err)
     )
