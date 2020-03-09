@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -16,9 +17,10 @@ export class SignupComponent implements OnInit {
     password : ''
   }
 
-  registered = false
-
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private toastr: ToastrService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -27,10 +29,13 @@ export class SignupComponent implements OnInit {
     this.authService.signUp(this.user)
     .subscribe(
       res => {
-        console.log(res)
-        this.registered = true
+        console.log(res);
+        this.toastr.success("REGISTRADO CORRECTAMENTE");
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+        this.toastr.error(err.error.err.message);
+      }
     )
   }
 

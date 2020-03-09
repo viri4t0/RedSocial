@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { AuthGuard } from './auth.guard'
 import { AuthInterceptorService} from './services/auth/auth-interceptor.service'
+import { ToastrModule } from 'ngx-toastr'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { AuthInterceptorService} from './services/auth/auth-interceptor.service'
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthGuard,
