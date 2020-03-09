@@ -29,6 +29,19 @@ router.get('/listusers', authenticateToken,(req, res) => {
     });
 });
 
+router.post('/updateUser', authenticateToken,(req, res) => {
+    console.log("UPDATE REQ: ", req.body)
+    Usuario.findByIdAndUpdate(req.body._id, req.body, (err, doc) =>{
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err,
+            });
+        }
+        return res.json({ok:true});
+    });
+});
+
 router.post('/addfriend', authenticateToken,(req, res) => {
     /*Usuario.findByIdAndUpdate(req.body.id, {$push : {"friends" : req.body.friend_id}}, (err, doc) => {
         if (err) {
@@ -61,5 +74,7 @@ router.post('/addfriend', authenticateToken,(req, res) => {
         });
     });*/
 });
+
+
 
 module.exports = router;

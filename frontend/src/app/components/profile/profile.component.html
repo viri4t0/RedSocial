@@ -26,10 +26,11 @@
             <input type="email" class="form-control" [(ngModel)]="user.email" name="email" id="email" placeholder="you@email.com">
         </div>
     </div>
+    
     <div class="form-group">
          <div class="col-xs-12">
               <br>
-                <button class="btn btn-lg btn-success" type="submit"><i class="fas fa-check"></i> GUARDAR</button>
+                <button class="btn btn-lg btn-success" (click)="updateInfo()"><i class="fas fa-check"></i> GUARDAR</button>
                  <button class="btn btn-lg" (click)="discardChanges()"><i class="fas fa-undo" ></i> DESHACER CAMBIOS </button>
           </div>
     </div>
