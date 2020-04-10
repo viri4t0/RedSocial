@@ -16,6 +16,9 @@ import { AuthGuard } from './auth.guard'
 import { AuthInterceptorService} from './services/auth/auth-interceptor.service'
 import { ToastrModule } from 'ngx-toastr'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InicioComponent } from './components/inicio/inicio.component';
+import { MiPerfilComponent } from './components/inicio/mi-perfil/mi-perfil.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SignupComponent,
     FriendsComponent,
     LffriendsComponent,
-    ProfileComponent
+    ProfileComponent,
+    InicioComponent,
+    MiPerfilComponent,
   ],
   imports: [
     BrowserModule,

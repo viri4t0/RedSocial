@@ -1,0 +1,249 @@
+
+<!--************************************
+    ******NOMBRE Y APELLIDOS************
+    ************************************-->
+<div class="p-3 border-bottom border-dark">
+  <h3>Nombre y apellidos de usuario</h3>
+</div>
+<!--************************************
+    ****************DATOS***************
+    ************************************-->
+<div class="p-3 border-bottom border-dark">
+  <h3>Datos</h3>
+  <br>
+  <p>Nombre de usuario:</p>
+  <p>Nombre: </p>
+  <p>Apellido: </p>
+  <p>Correo: </p>
+  <p>Sector:</p>
+  <p>Aficiones:</p>
+  <p>Fecha de nacimiento:</p>
+  <p>Código Postal:</p>
+  <p>La empresa donde trabajo: </p>
+</div>
+
+<!--************************************
+    ******EMPIEZA EL FORMULARIO*********
+    ************************************-->
+<form class="form" (ngSubmit)="onSubmit()">
+  <div class="p-3 border-bottom border-dark">
+<!--************************************
+    ******CONFIGURACION GENERAL*********
+    ************************************-->
+    <h3>Configuración</h3>
+    <br>
+    <h5> tipo de perfil</h5>
+
+      <!--Radio button tipo de perfil-->
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="publico" name="tipoPerfil" value="publico"  [(ngModel)]="user.perfil" class="custom-control-input">
+        <label class="custom-control-label" for="publico">Publico</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="privado" name="tipoPerfil" value="privado" [(ngModel)]="user.perfil" class="custom-control-input">
+        <label class="custom-control-label" for="privado">Privado</label>
+      </div>
+
+      <!--Si el perfil es público mostramos la configuración-->
+      <div class="mt-3" *ngIf="user.perfil === 'publico'">
+        <h5>Quien me puede buscar?</h5>
+        <!--Check Box de quien ve el perfil público-->
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="empresa" type="checkbox" id="empresa"  [(ngModel)]="user.perfilPublico.empresa">
+          <label class="form-check-label" for="empresa">Gente de mi empresa</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="sector" type="checkbox" id="sector"  [(ngModel)]="user.perfilPublico.sector">
+          <label class="form-check-label" for="sector">Gente de mi sector</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="zona" type="checkbox" id="zona"  [(ngModel)]="user.perfilPublico.zona">
+          <label class="form-check-label" for="zona">Gente de mi zona</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input  class="form-check-input" name="no-zona" type="checkbox" id="no-zona"  [(ngModel)]="user.perfilPublico.noZona">
+          <label class="form-check-label" for="no-zona">Gente de fuera de mi zona</label>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <h5>Que pueden ver</h5>
+        <!--Para cada perfil tenemos unos checkbox-->
+        <!--Perfil público-->
+        <div class="mt-3" *ngIf="user.perfil === 'publico'">
+          <h6>Publico</h6>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name='public-correo' type="checkbox" id="public-correo" [(ngModel)]="user.puedeVerPublico.correo">
+            <label class="form-check-label" for="public-correo">Correo</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name='public-sector' type="checkbox" id="public-sector" [(ngModel)]="user.puedeVerPublico.sector">
+            <label class="form-check-label" for="public-sector">Sector</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name='public-aficiones' type="checkbox" id="public-aficiones" [(ngModel)]="user.puedeVerPublico.aficiones">
+            <label class="form-check-label" for="public-aficiones">Aficiones</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name='public-edad' type="checkbox" id="public-edad" [(ngModel)]="user.puedeVerPublico.edad">
+            <label class="form-check-label" for="public-edad">Edad</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input  class="form-check-input" name='public-zona' type="checkbox" id="public-zona" [(ngModel)]="user.puedeVerPublico.cp">
+            <label class="form-check-label" for="public-zona">Codigo Postal</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input  class="form-check-input" name='public-trabajo' type="checkbox" id="public-trabajo" [(ngModel)]="user.puedeVerPublico.trabajo">
+            <label class="form-check-label" for="public-trabajo">Trabajo</label>
+          </div>
+        </div>
+        <!--Perfil Conocido-->
+        <div class="mt-3">
+          <h6>Conocidos</h6>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="conocido-correo" type="checkbox" id="conocido-correo" [(ngModel)]="user.puedeVerConocido.correo">
+            <label class="form-check-label" for="conocido-correo">Correo</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="conocido-sector" type="checkbox" id="conocido-sector" [(ngModel)]="user.puedeVerConocido.sector">
+            <label class="form-check-label" for="conocido-sector">Sector</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="conocido-aficiones" type="checkbox" id="conocido-aficiones" [(ngModel)]="user.puedeVerConocido.aficiones">
+            <label class="form-check-label" for="conocido-aficiones">Aficiones</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="conocido-edad" type="checkbox" id="conocido-edad" [(ngModel)]="user.puedeVerConocido.edad">
+            <label class="form-check-label" for="conocido-correo">Edad</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input  class="form-check-input" name="conocido-zona" type="checkbox" id="conocido-zona" [(ngModel)]="user.puedeVerConocido.cp">
+            <label class="form-check-label" for="conocido-zona">Codigo Postal</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input  class="form-check-input" name="conocido-trabajo" type="checkbox" id="conocido-trabajo" [(ngModel)]="user.puedeVerConocido.trabajo">
+            <label class="form-check-label" for="conocido-trabajo">Trabajo</label>
+          </div>
+        </div>
+        <!--Perfil Amigos-->
+        <div class="mt-3" >
+          <h6>amigos</h6>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="amigo-correo" type="checkbox" id="amigo-correo" [(ngModel)]="user.puedeVerAmigo.correo">
+            <label class="form-check-label" for="amigo-correo">Correo</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="amigo-sector" type="checkbox" id="amigo-sector" [(ngModel)]="user.puedeVerAmigo.sector">
+            <label class="form-check-label" for="amigo-sector">Sector</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="amigo-aficiones" type="checkbox" id="amigo-aficiones" [(ngModel)]="user.puedeVerAmigo.aficiones">
+            <label class="form-check-label" for="amigo-aficiones">Aficiones</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="amigo-edad" type="checkbox" id="amigo-edad" [(ngModel)]="user.puedeVerAmigo.edad">
+            <label class="form-check-label" for="amigo-correo">Edad</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input  class="form-check-input" name="amigo-zona" type="checkbox" id="amigo-zona" [(ngModel)]="user.puedeVerAmigo.cp">
+            <label class="form-check-label" for="amigo-zona">Codigo Postal</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input  class="form-check-input" name="amigo-trabajo" type="checkbox" id="amigo-trabajo" [(ngModel)]="user.puedeVerAmigo.trabajo">
+            <label class="form-check-label" for="amigo-trabajo">Trabajo</label>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <!--************************************
+    ******EMPIEZA EL APARTADO POST********
+    ************************************-->
+  <div class="p-3 border-bottom border-dark">
+    <h3>Post</h3>
+    <br>
+    <h5> Configuracion - Quien lo puede ver?</h5>
+    <!--Todos-->
+    <div class="mt-3" *ngIf="user.perfil === 'publico'">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="postPublic" type="checkbox" id="postPublic" [(ngModel)]='postPublicSelected'>
+        <label class="form-check-label" for="postPublic"><h6>Publico</h6></label>
+      </div>
+      <br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="postPublicEmpresa" type="checkbox" id="postPublicEmpresa" [disabled]="!postPublicSelected" [(ngModel)]="user.postPublic.empresa">
+        <label class="form-check-label" for="postPublicEmpresa">Gente de mi empresa</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="postPublicSector" type="checkbox" id="postPublicSector" [disabled]="!postPublicSelected" [(ngModel)]="user.postPublic.sector">
+        <label class="form-check-label" for="postPublicSector">Gente del sector</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="postPublicZona" type="checkbox" id="postPublicZona" [disabled]="!postPublicSelected" [(ngModel)]="user.postPublic.zona">
+        <label class="form-check-label" for="postPublicZona">Gente de mi zona</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input  class="form-check-input" name="postPublicNoZona" type="checkbox" id="postPublicNoZona" [disabled]="!postPublicSelected" [(ngModel)]="user.postPublic.noZona">
+        <label class="form-check-label" for="postPublicNoZona">Gente de fuera de mi zona</label>
+      </div>
+    </div>
+    <!--Conocidos-->
+    <div class="mt-3" >
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="postConocidos" type="checkbox" id="postConocidos" [(ngModel)]='postConocidoSelected'>
+        <label class="form-check-label" for="postConocidos"><h6>Conocidos</h6></label>
+      </div>
+      <br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="postConocidosEmpresa" type="checkbox" id="postConocidosEmpresa" [disabled]="!postConocidoSelected" [(ngModel)]="user.postConocido.empresa">
+        <label class="form-check-label" for="postConocidosEmpresa">Conocidos de mi empresa</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="postConocidosSector" type="checkbox" id="postConocidosSector" [disabled]="!postConocidoSelected" [(ngModel)]="user.postConocido.sector">
+        <label class="form-check-label" for="postConocidosSector">Conocidos del sector</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="postConocidosZona" type="checkbox" id="postConocidosZona" [disabled]="!postConocidoSelected" [(ngModel)]="user.postConocido.zona">
+        <label class="form-check-label" for="postConocidosZona">Conocidos de mi zona</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input  class="form-check-input" name="postConocidosNoZona" type="checkbox" id="postConocidosNoZona" [disabled]="!postConocidoSelected" [(ngModel)]="user.postConocido.noZona">
+        <label class="form-check-label" for="postConocidosNoZona">Conocidos de fuera de mi zona</label>
+      </div>
+    </div>
+      <!--Amigos-->
+      <div class="mt-3" >
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="postAmigos" type="checkbox" id="postAmigos" [(ngModel)]='postAmigoSelected'>
+          <label class="form-check-label" for="postAmigos"><h6>Amigos</h6></label>
+        </div>
+        <br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="postAmigosEmpresa" type="checkbox" id="postAmigosEmpresa" [disabled]="!postAmigoSelected" [(ngModel)]="user.postAmigo.empresa">
+          <label class="form-check-label" for="postAmigosEmpresa">Amigos de mi empresa</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="postAmigosSector" type="checkbox" id="postAmigosSector" [disabled]="!postAmigoSelected" [(ngModel)]="user.postAmigo.sector">
+          <label class="form-check-label" for="postAmigosSector">Amigos del sector</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="postAmigosZona" type="checkbox" id="postAmigosZona" [disabled]="!postAmigoSelected" [(ngModel)]="user.postAmigo.zona">
+          <label class="form-check-label" for="postAmigosZona">Amigos de mi zona</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input  class="form-check-input" name="postAmigosNoZona" type="checkbox" id="postAmigosNoZona" [disabled]="!postAmigoSelected" [(ngModel)]="user.postAmigo.noZona">
+          <label class="form-check-label" for="postAmigosNoZona">Amigos de fuera de mi zona</label>
+        </div>
+      </div>
+       <!--Contenido del post-->
+      <div class="mt-3">
+        <h5> Contenido</h5>
+        <div class="mt-3">
+          <h6>Titulo</h6>
+          <p>este es el contenido del post</p>
+        </div>
+      </div>
+  </div>
+  <button class="btn  btn-success btn-block" type="submit"> ACTUALIZAR DATOS</button>
+</form>

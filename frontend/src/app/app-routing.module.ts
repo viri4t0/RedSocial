@@ -6,8 +6,9 @@ import { FriendsComponent } from './components/friends/friends.component';
 import { LffriendsComponent } from './components/lffriends/lffriends.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { InicioComponent } from './components/inicio/inicio.component';
 
-import { AuthGuard } from './auth.guard'
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -36,6 +37,11 @@ const routes: Routes = [
   {
     path : 'lffriends',
     component : LffriendsComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path : 'inicio',
+    component : InicioComponent,
     canActivate : [AuthGuard]
   }
 ];
