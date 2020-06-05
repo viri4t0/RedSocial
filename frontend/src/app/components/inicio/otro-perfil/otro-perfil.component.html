@@ -3,4 +3,14 @@
     ************************************-->
     <div class="p-3 border-bottom border-dark">
       <h3>Selecciona a un usuario</h3>
+      <br/>
+      <select [(ngModel)]="usuarioSeleccionado" class="custom-select custom-select-sm" id="listaUsuarios" (change)="onChange()"  >
+        <option [ngValue]="usuario" *ngFor="let usuario of listadoDeUsuarios">
+           {{usuario.nombre}} {{usuario.apellido}}
+        </option>
+    </select>
+    <label>Seleccione que usuario vera el perfil</label>
     </div>
+
+
+
