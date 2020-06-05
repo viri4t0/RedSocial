@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const Usuario = require('./../models/user');
-const jwt = require('jsonwebtoken'); 
+const jwt = require('jsonwebtoken');
 const { Router } = require('express');
 const router = Router();
 
@@ -24,7 +24,7 @@ router.post('/login', (req, res) => {
                     message: "Usuario o contraseña incorrectos"
                 }
             })
-        } 
+        }
 
         // Valida que la contraseña escrita por el usuario, sea la almacenada en la db
         if (! bcrypt.compareSync(body.password, usuarioDB.password)){
@@ -50,7 +50,7 @@ router.post('/login', (req, res) => {
         })
 
     })
-    
+
 });
 
 router.post('/register', function (req, res) {
@@ -74,7 +74,7 @@ router.post('/register', function (req, res) {
           });
       }
 
-      
+
 
       res.json({
           ok: true,

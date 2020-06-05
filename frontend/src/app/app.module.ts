@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -11,13 +12,14 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
-import { AuthGuard } from './auth.guard'
-import { AuthInterceptorService} from './services/auth/auth-interceptor.service'
-import { ToastrModule } from 'ngx-toastr'
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
+import { AuthInterceptorService} from './services/auth/auth-interceptor.service';
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { MiPerfilComponent } from './components/inicio/mi-perfil/mi-perfil.component';
+import { OtroPerfilComponent } from './components/inicio/otro-perfil/otro-perfil.component';
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { MiPerfilComponent } from './components/inicio/mi-perfil/mi-perfil.compo
     ProfileComponent,
     InicioComponent,
     MiPerfilComponent,
+    OtroPerfilComponent,
   ],
   imports: [
     BrowserModule,

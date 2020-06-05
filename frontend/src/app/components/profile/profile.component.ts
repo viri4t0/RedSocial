@@ -15,7 +15,12 @@ export class ProfileComponent implements OnInit {
     nombre : '',
     apellido : '',
     email : '',
-  }
+    sector : '',
+    aficiones : '',
+    fechaNacimiento : '',
+    cp : '',
+    trabajo : ''
+  };
 
   userInitial;
 

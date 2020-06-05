@@ -3,7 +3,7 @@
     ******NOMBRE Y APELLIDOS************
     ************************************-->
 <div class="p-3 border-bottom border-dark">
-  <h3>Nombre y apellidos de usuario</h3>
+  <h3>{{user.nombre}} {{user.apellido}}</h3>
 </div>
 <!--************************************
     ****************DATOS***************
@@ -11,15 +11,15 @@
 <div class="p-3 border-bottom border-dark">
   <h3>Datos</h3>
   <br>
-  <p>Nombre de usuario:</p>
-  <p>Nombre: </p>
-  <p>Apellido: </p>
-  <p>Correo: </p>
-  <p>Sector:</p>
-  <p>Aficiones:</p>
-  <p>Fecha de nacimiento:</p>
-  <p>Código Postal:</p>
-  <p>La empresa donde trabajo: </p>
+  <p>Nombre de usuario: {{user.username}}</p>
+  <p>Nombre: {{user.nombre}}</p>
+  <p>Apellido: {{user.apellido}}</p>
+  <p>Correo: {{user.email}}</p>
+  <p>Sector: {{user.sector}}</p>
+  <p>Aficiones: {{user.aficiones}}</p>
+  <p>Fecha de nacimiento: {{user.fechaNacimiento}}</p>
+  <p>Código Postal: {{user.cp}}</p>
+  <p>La empresa donde trabajo: {{user.trabajo}}</p>
 </div>
 
 <!--************************************

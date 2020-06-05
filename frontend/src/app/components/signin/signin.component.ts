@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
+
 })
 export class SigninComponent implements OnInit {
 
@@ -16,7 +18,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
     ) { }
 
   ngOnInit(): void {
@@ -32,7 +35,10 @@ export class SigninComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(res['usuario']));
         this.router.navigate(['/profile']);
       },
-      err => console.log(err)
+      err => {
+      console.log(err)
+      this.toastr.error("LAS CREDENCIALES NO SON VALIDAS");
+      }
     )
   }
 

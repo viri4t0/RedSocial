@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { PrivateProfileService } from '../../../services/privateProfile/privateProfile.service';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -17,6 +20,11 @@ export class MiPerfilComponent implements OnInit {
     apellido : '',
     email : '',
     perfil : '',
+    sector : '',
+    aficiones : '',
+    fechaNacimiento : '',
+    cp : '',
+    trabajo : '',
     perfilPublico : {
       empresa : false,
       sector : false,
@@ -67,14 +75,38 @@ export class MiPerfilComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  userInitial;
+
+  constructor(
+    private router: Router,
+    private privateProfileService: PrivateProfileService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.userInitial = Object.assign({}, this.user);
   }
 
   onSubmit(): void {
-    console.log(this.user);
-
+    this.privateProfileService.update(this.user)
+    .subscribe(
+      res => {
+        console.log("RESPUESTA", res);
+        if(res.ok == true){
+          localStorage.setItem('user', JSON.stringify(this.user));
+          this.userInitial = Object.assign({}, this.user);
+          this.toastr.success("DATOS DE USUARIO ACTUALIZADOS");
+        }
+      },
+      err => {
+        console.log(err)
+        this.toastr.error(err.error.respuesta);
+      }
+    )
 
   }
+
+
+
 }
