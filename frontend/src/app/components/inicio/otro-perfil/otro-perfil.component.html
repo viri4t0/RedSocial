@@ -5,12 +5,45 @@
       <h3>Selecciona a un usuario</h3>
       <br/>
       <select [(ngModel)]="usuarioSeleccionado" class="custom-select custom-select-sm" id="listaUsuarios" (change)="onChange()"  >
+        <option hidden  selected value> -- select an option -- </option>
         <option [ngValue]="usuario" *ngFor="let usuario of listadoDeUsuarios">
            {{usuario.nombre}} {{usuario.apellido}}
         </option>
     </select>
     <label>Seleccione que usuario vera el perfil</label>
     </div>
+
+    <!--************************************
+    ****************DATOS***************
+    ************************************-->
+<div class="p-3 border-bottom border-dark">
+  <h3>Relacion con el usuario</h3>
+  <p>Seleccione que relacion quiere mantener con el usuario</p>
+  <button *ngIf="estadoObtenidoBilateral === 2" type="button" class="btn btn-success  border border-dark border-5">Amigo</button>
+      <button *ngIf="estadoObtenidoBilateral !== 2" type="button" class="btn btn-success " (click)="cambiarRelacion(2)"> Amigo </button>
+
+      <button *ngIf="estadoObtenidoBilateral === 1" type="button" class="btn btn-warning ml-5 border border-dark border-5">Conocido</button>
+      <button *ngIf="estadoObtenidoBilateral !== 1" type="button" class="btn btn-warning ml-5" (click)="cambiarRelacion(1)">Conocido</button>
+
+      <button *ngIf="estadoObtenidoBilateral === 0" type="button" class="btn btn-danger ml-5 border border-dark border-5">Desconocido</button>
+      <button *ngIf="estadoObtenidoBilateral !== 0" type="button" class="btn btn-danger ml-5" (click)="cambiarRelacion(0)">Desconocido</button>
+
+</div>
+
+<div class="p-3">
+  <h3>Datos que puedo ver</h3>
+  <br>
+  <p>Nombre de usuario: {{estoPuedoVer.username}}</p>
+  <p>Nombre: {{estoPuedoVer.nombre}}</p>
+  <p>Apellido: {{estoPuedoVer.apellido}}</p>
+  <p>Correo: {{estoPuedoVer.email}}</p>
+  <p>Sector: {{estoPuedoVer.sector}}</p>
+  <p>Aficiones: {{estoPuedoVer.aficiones}}</p>
+  <p>Fecha de nacimiento: {{estoPuedoVer.fechaNacimiento}}</p>
+  <p>Código Postal: {{estoPuedoVer.cp}}</p>
+  <p>La empresa donde trabajo: {{estoPuedoVer.trabajo}}</p>
+</div>
+
 
 
 

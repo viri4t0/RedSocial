@@ -22,6 +22,7 @@ function authenticateToken(req, res, next) {
 
 //estas son las rutas a las que puedes acceder
 //LISTAMOS LOS USUARIOS QUE SON AMIGOS
+
 router.post('/listusers', authenticateToken,  (req, res) => {
 
 
@@ -61,6 +62,7 @@ router.post('/listusers', authenticateToken,  (req, res) => {
   });
 });
 
+
 //LISTAMOS TODOS LOS USUARIOS PARA EL PANEL PRINCIPAL
 router.post('/listarUsers', authenticateToken,  (req, res) => {
 
@@ -91,7 +93,7 @@ router.post('/relacionarUsuarios', authenticateToken,(req, res) => {
       var model = new Relaciones(); //use the defaults in the schema
       model.user1 = req.body.user1;
       model.user2 = req.body.user2;
-      model.status = 2;
+      model.status = 0;
       model.statusUser1 = 0;
       model.statusUser2 = 0;
       model.nombreUser1 = req.body.nombreUser1;
@@ -104,11 +106,19 @@ router.post('/relacionarUsuarios', authenticateToken,(req, res) => {
 
       });
       //console.log("envio esto", model);
-      res.send(model);
+      jsonResponse = {};
+      jsonResponse.value = model.statusUser1;
+      res.send(jsonResponse);
     }
 
     else
-      res.send(relaciones);
+    {
+      console.log("dimelo", relaciones[0].statusUser1)
+      jsonResponse = {};
+      jsonResponse.value = relaciones[0].statusUser1;
+      console.log("json",jsonResponse )
+      res.send(jsonResponse);
+    }
   });
 });
 
@@ -160,39 +170,123 @@ router.post('/updateUserPrivate', authenticateToken,(req, res) => {
   });
 });
 
-router.post('/addfriend', authenticateToken,(req, res) => {
-    /*Usuario.findByIdAndUpdate(req.body.id, {$push : {"friends" : req.body.friend_id}}, (err, doc) => {
-        if (err) {
-            return res.status(400).json({
-                ok: false,
-                err,
-            });
-        }
-        console.log(doc);
-        return res.status(200).json({
-            ok: true
+router.post('/cambiarRelacion', authenticateToken,(req, res) => {
+
+  if (req.body.newStatus != 0)
+  {
+    Relaciones.findOneAndUpdate({ "$and": [ {"$or": [  {'user1': req.body.user1}, {'user2': req.body.user1 } ] } , {"$or": [  {'user1': req.body.user2}, {'user2': req.body.user2 } ] }]},
+    { "$set": { "status": 2, "statusUser1": req.body.newStatus, "statusUser2": req.body.newStatus,  } },{ "new": true, }, (err, doc) =>{
+      if (err) {
+        console.log(err)
+        return res.status(400).json({
+            ok: false,
+            err,
         });
-    })
-    Usuario.findById(req.body.id, (errfinduser, user) => {
-        if (errfinduser) {
-            return res.status(400).json({
-                ok: false,
-                errfinduser,
-            });
-        }
-        user.updateOne({$push : {"friends" : req.body.friend_id}}, (errpush, updateduser) => {
-            if (errpush) {
-                return res.status(400).json({
-                    ok: false,
-                    errpush,
-                });
-            }
-            console.log(updateduser);
-            return res.sendStatus(200);
+      }
+      console.log("devolvemos lo siguiente", doc.statusUser1)
+      return res.json(doc.statusUser1);
+    });
+    }
+  //SI NO SON NI AMIGOS NI CONOCIDOS EL VALOR DE STATUS DEBE ESTABLECERSE A 0
+  else
+  {
+    Relaciones.findOneAndUpdate({ "$and": [ {"$or": [  {'user1': req.body.user1}, {'user2': req.body.user1 } ] } , {"$or": [  {'user1': req.body.user2}, {'user2': req.body.user2 } ] }]},
+    { "$set": { "status": 0, "statusUser1": req.body.newStatus, "statusUser2": req.body.newStatus,  } },{ "new": true, }, (err, doc) =>{
+      if (err) {
+        console.log(err)
+        return res.status(400).json({
+            ok: false,
+            err,
         });
-    });*/
+      }
+      console.log("devolvemos lo siguiente", doc.statusUser1)
+      return res.json(doc.statusUser1);
+    });
+  }
 });
 
+router.post('/quePuedoVer', authenticateToken,  (req, res) => {
 
+  Promise.all([
+    Usuario.find({ _id: req.body.user1 }),
+    Relaciones.find({ "$and": [ {"$or": [  {'user1': req.body.user1}, {'user2': req.body.user1 } ] } , {"$or": [  {'user1': req.body.user2}, {'user2': req.body.user2 } ] }]})
+  ]).then( ([ user, relacion ]) => {
+
+    let respuesta = {
+      username : '',
+      nombre : '',
+      apellido : '',
+      email : '',
+      sector : '',
+      aficiones : '',
+      fechaNacimiento : '',
+      cp : '',
+      trabajo : ''
+    };
+
+
+    switch (relacion[0].statusUser1)
+    {
+      case 0:
+        if(user[0].perfil != "privado")
+        {
+          respuesta.username = user[0].username;
+          respuesta.nombre = user[0].nombre;
+          respuesta.apellido = user[0].apellido;
+          if (user[0].puedeVerPublico.correo)
+            respuesta.email = user[0].email;
+          if(user[0].puedeVerPublico.sector)
+            respuesta.sector = user[0].sector;
+          if(user[0].puedeVerPublico.aficiones)
+            respuesta.aficiones = user[0].aficiones;
+          if(user[0].puedeVerPublico.edad)
+            respuesta.fechaNacimiento = user[0].fechaNacimiento;
+          if(user[0].puedeVerPublico.cp)
+            respuesta.cp = user[0].cp;
+          if(user[0].puedeVerPublico.trabajo)
+            respuesta.trabajo = user[0].trabajo;
+        }
+        break;
+
+      case 1:
+          respuesta.username = user[0].username;
+          respuesta.nombre = user[0].nombre;
+          respuesta.apellido = user[0].apellido;
+          if (user[0].puedeVerConocido.correo)
+            respuesta.email = user[0].email;
+          if(user[0].puedeVerConocido.sector)
+            respuesta.sector = user[0].sector;
+          if(user[0].puedeVerConocido.aficiones)
+            respuesta.aficiones = user[0].aficiones;
+          if(user[0].puedeVerConocido.edad)
+            respuesta.fechaNacimiento = user[0].fechaNacimiento;
+          if(user[0].puedeVerConocido.cp)
+            respuesta.cp = user[0].cp;
+          if(user[0].puedeVerConocido.trabajo)
+            respuesta.trabajo = user[0].trabajo;
+          break;
+
+      case 2:
+          respuesta.username = user[0].username;
+          respuesta.nombre = user[0].nombre;
+          respuesta.apellido = user[0].apellido;
+          if (user[0].puedeVerAmigo.correo)
+            respuesta.email = user[0].email;
+          if(user[0].puedeVerAmigo.sector)
+            respuesta.sector = user[0].sector;
+          if(user[0].puedeVerAmigo.aficiones)
+            respuesta.aficiones = user[0].aficiones;
+          if(user[0].puedeVerAmigo.edad)
+            respuesta.fechaNacimiento = user[0].fechaNacimiento;
+          if(user[0].puedeVerAmigo.cp)
+            respuesta.cp = user[0].cp;
+          if(user[0].puedeVerAmigo.trabajo)
+            respuesta.trabajo = user[0].trabajo;
+          break;
+    }
+    console.log("devolvi9endo esto", respuesta)
+    return res.send(respuesta);
+  });
+});
 
 module.exports = router;

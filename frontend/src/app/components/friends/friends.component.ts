@@ -27,7 +27,6 @@ export class FriendsComponent implements OnInit {
         console.log("RESPUESTA", res);
         this.relaciones = res;
         localStorage.setItem('relaciones', JSON.stringify(res));
-        this.toastr.success("DATOS DE USUARIO ACTUALIZADOS");
       },
       err => {
         console.log(err);

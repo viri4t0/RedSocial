@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PrivateProfileService } from '../../../services/privateProfile/privateProfile.service';
 
+
 @Component({
   selector: 'app-mi-perfil',
   templateUrl: './mi-perfil.component.html',
@@ -97,6 +98,7 @@ export class MiPerfilComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(this.user));
           this.userInitial = Object.assign({}, this.user);
           this.toastr.success("DATOS DE USUARIO ACTUALIZADOS");
+          window.location.reload();
         }
       },
       err => {
@@ -104,7 +106,6 @@ export class MiPerfilComponent implements OnInit {
         this.toastr.error(err.error.respuesta);
       }
     )
-
   }
 
 
