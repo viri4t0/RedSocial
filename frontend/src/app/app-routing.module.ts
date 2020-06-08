@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { SigninComponent } from './components/signin/signin.component';
 import { FriendsComponent } from './components/friends/friends.component';
-import { LffriendsComponent } from './components/lffriends/lffriends.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { InicioComponent } from './components/inicio/inicio.component';
@@ -32,11 +30,6 @@ const routes: Routes = [
   {
     path : 'friends',
     component : FriendsComponent,
-    canActivate : [AuthGuard]
-  },
-  {
-    path : 'lffriends',
-    component : LffriendsComponent,
     canActivate : [AuthGuard]
   },
   {

@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { FriendsComponent } from './components/friends/friends.component';
-import { LffriendsComponent } from './components/lffriends/lffriends.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 
@@ -28,7 +27,6 @@ import { OtroPerfilComponent } from './components/inicio/otro-perfil/otro-perfil
     SigninComponent,
     SignupComponent,
     FriendsComponent,
-    LffriendsComponent,
     ProfileComponent,
     InicioComponent,
     MiPerfilComponent,

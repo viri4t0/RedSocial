@@ -19,10 +19,8 @@ function authenticateToken(req, res, next) {
     })
 }
 
-
 //estas son las rutas a las que puedes acceder
 //LISTAMOS LOS USUARIOS QUE SON AMIGOS
-
 router.post('/listusers', authenticateToken,  (req, res) => {
 
 
@@ -170,6 +168,7 @@ router.post('/updateUserPrivate', authenticateToken,(req, res) => {
   });
 });
 
+//CAMBIAMOS LA RELACION DE LOS USUARIOS
 router.post('/cambiarRelacion', authenticateToken,(req, res) => {
 
   if (req.body.newStatus != 0)
@@ -205,6 +204,7 @@ router.post('/cambiarRelacion', authenticateToken,(req, res) => {
   }
 });
 
+//DEVOLVEMOS LA INFORMACION ACCESIBLE
 router.post('/quePuedoVer', authenticateToken,  (req, res) => {
 
   Promise.all([
